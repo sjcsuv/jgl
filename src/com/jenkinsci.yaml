@@ -1,0 +1,34 @@
+pipeline:
+  agent:
+    any: {}
+
+  stages:
+    - stage: Build
+      steps:
+        - echo: 'Building...'
+        - sh: 'mvn clean install'  # Use 'npm install' for Node.js or 'dotnet build' for .NET
+
+    - stage: Test
+      steps:
+        - echo: 'Testing...'
+        - sh: 'mvn test'  # Use 'npm test' for Node.js or 'dotnet test' for .NET
+
+    - stage: Deploy
+      steps:
+        - echo: 'Deploying...'
+        - sh: 'scp target/*.jar user@server:/path/to/deploy'  # Adjust based on deployment method
+
+  post:
+    always:
+      steps:
+        - echo: 'Cleaning up...'
+        - cleanWs: {}  # Clean workspace after build
+
+    success:
+      steps:
+        - echo: 'Pipeline completed successfully!'
+
+    failure:
+      steps:
+        - echo: 'Pipeline failed!'
+
