@@ -1,3 +1,6 @@
+
+class jenkins {
+   def start () {
 pipeline {
     agent any
 
@@ -41,5 +44,6 @@ pipeline {
             echo 'Pipeline failed!'
         }
     }
+   }
+  }
 }
-
