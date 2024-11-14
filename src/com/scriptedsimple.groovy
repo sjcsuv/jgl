@@ -17,7 +17,8 @@ node {
                     }
            
         }
-        
+
+             }
         stage('Read File') {
             echo 'Reading the contents of the file...'
             // This displays the contents of the created file
