@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools {
+        maven 'MyLocalMaven' // Use the Maven configuration from Global Tool Configuration
+    }
+    stages {
+        stage("clean up") {
+            steps {
+                deleteDir()
+            }
+        }
+        stage("clone repo") {
+            steps {
+                bat 'git clone https://github.com/jenkins-docs/simple-java-maven-app.git'
+            }
+        }
+        stage("Build") {
+            steps {
+                dir('simple-java-maven-app') {
+                    bat 'mvn clean install'
+                }
+            }
+        }
+        stage("test") {
+            steps {
+                dir('simple-java-maven-app') {
+                    bat 'mvn test'
+                }
+            }
+        }
+    }
+}
