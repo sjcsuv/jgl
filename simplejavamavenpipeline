@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'MyLocalMaven' // Use the Maven configuration from Global Tool Configuration
+        maven 'MyLocalMaven' // Use the Maven configuration from Global Tool Configuration//pollscm check
     }
     stages {
         stage("clean up") {
