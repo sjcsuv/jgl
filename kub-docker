@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        kubernetes {
+            label 'docker-agent'
+            yaml """
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              labels:
+                some-label: docker-agent
+            spec:
+              containers:
+              - name: node
+                image: node:18-alpine
+                command:
+                - cat
+                tty: true
+              - name: docker
+                image: docker:dind
+                securityContext:
+                  privileged: true
+            """
+         }
+      }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'docker --version'
+                sh 'docker run --rm alpine echo "Hello from Docker-in-Docker!"'
+            }
+        }
+    }
+}

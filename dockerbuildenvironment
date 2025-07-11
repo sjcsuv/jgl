@@ -1,0 +1,21 @@
+pipeline
+{
+    agent any 
+       stages{
+        stage('w/o docker'){
+            steps {
+                sh 'echo "withoutdocker"'
+            }
+        }
+        stage('with docker'){
+            agent{
+                docker{
+                image: node:18-alpine
+                }
+            }
+            steps {
+                sh 'echo "withdocker"'
+            }
+        }
+       }
+}
